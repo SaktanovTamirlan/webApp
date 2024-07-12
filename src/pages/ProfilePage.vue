@@ -1,18 +1,15 @@
 <template>
   <div>
-    <button @click="redirectToFastAPI">Click</button>
+    <div v-for="n in 180" :key="n">
+      Lorem ipsum dolor sit amet consectetur adipisicing elit. Iusto autem sint
+      quae, temporibus fugit sapiente asperiores laudantium vitae aliquam
+      corporis corrupti amet praesentium aperiam, laboriosam labore earum atque
+      provident non!
+    </div>
   </div>
 </template>
 
-<script>
-export default {
-  methods: {
-    redirectToFastAPI() {
-      window.location.href = "http://localhost:8000/login";
-    },
-  },
-};
-</script>
+<script></script>
 
 <style scoped>
 /* Ваши стили */

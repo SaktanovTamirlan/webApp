@@ -1,21 +1,18 @@
 <template>
   <div>
-    <q-btn @click="showToken" label="Show Token" />
+    <div v-for="n in 180" :key="n">
+      Lorem ipsum dolor sit amet consectetur adipisicing elit. Iusto autem sint
+      quae, temporibus fugit sapiente asperiores laudantium vitae aliquam
+      corporis corrupti amet praesentium aperiam, laboriosam labore earum atque
+      provident non!
+    </div>
   </div>
 </template>
 
 <script setup>
-const showToken = () => {
-  const cookies = document.cookie.split(";").map((cookie) => cookie.trim());
-  const accessTokenCookie = cookies.find((cookie) =>
-    cookie.startsWith("access_token=")
-  );
-
-  if (accessTokenCookie) {
-    const accessToken = accessTokenCookie.split("=")[1];
-    console.log("Access Token:", accessToken);
-  } else {
-    console.log("Access Token не найден в cookie");
-  }
-};
+import { onBeforeMount } from "vue";
+const name = localStorage.getItem("userName");
+onBeforeMount(() => {
+  console.log(name);
+});
 </script>

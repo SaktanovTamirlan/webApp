@@ -95,8 +95,20 @@ async def get_user_info(request: Request):
         raise HTTPException(status_code=401, detail="Нет токена доступа")
 
     try:
-         userinfo = keycloak_openid.userinfo(access_token)
-         return userinfo
+        # Валидация токена и получение информации о пользователе
+        userinfo = keycloak_openid.userinfo(access_token)
+        username = userinfo.get('preferred_username', 'User')
+
+        # Получение разрешений пользователя
+        # user_permissions  = keycloak_openid.uma_permissions(access_token)
+        return userinfo
+
+    except requests.exceptions.RequestException as e:
+        raise HTTPException(status_code=500, detail="Ошибка при запросе к Keycloak")
+
+    except KeyError as e:
+        raise HTTPException(status_code=500, detail="Неверный формат ответа от Keycloak")
+
     except Exception as e:
         raise HTTPException(status_code=401, detail="Неверные учетные данные")
 
