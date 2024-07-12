@@ -48,18 +48,17 @@ const router = useRouter();
 
 const showAccessToken = async () => {
   try {
-    const response = await axios.get(
-      "http://localhost:8080/realms/myrealm/protocol/openid-connect/token",
-      {
-        withCredentials: true,
-      }
-    );
+    const response = await axios.get("http://localhost:8000/user", {
+      withCredentials: true,
+    });
     const userInfo = response.data;
-    console.log("User Info:", userInfo);
+    console.log(userInfo);
   } catch (error) {
     console.error("Ошибка при получении Access Token:", error);
   }
 };
 </script>
 
-<style></style>
+<style scoped>
+/* Ваши стили */
+</style>
