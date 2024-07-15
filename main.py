@@ -12,7 +12,7 @@ app = FastAPI()
 keycloak_server_url = "http://localhost:8080/"  # Добавлен слэш в конце
 realm_name = "myrealm"
 client_id = "myrealm"
-client_secret = "p0wkUtW2abAXgYN284eR0t53yNKGQ3Xn"
+client_secret = "iZRkiYF6s1h0kac8gErRziWuny8xz6Bv"
 
 # Инициализация Keycloak клиента
 keycloak_openid = KeycloakOpenID(server_url=keycloak_server_url,
@@ -65,11 +65,10 @@ async def callback(request: Request):
     if not code:
         raise HTTPException(status_code=400, detail="Код авторизации не найден")
 
-    # Обмен кода авторизации на токен доступа
     token_data = {
         'grant_type': 'authorization_code',
         'code': code,
-        'redirect_uri': "http://localhost:8000/callback",  # Замените на ваш реальный адрес
+        'redirect_uri': "http://localhost:8000/callback",
         'client_id': client_id,
         'client_secret': client_secret,
     }
@@ -82,12 +81,10 @@ async def callback(request: Request):
     if not access_token:
         raise HTTPException(status_code=400, detail="Токен доступа не найден в ответе")
 
-    # Сохранение токена в cookie (например)
     response = RedirectResponse(url="/user")
     response.set_cookie(key="access_token", value=access_token, httponly=True)
     return response
 
-# Защищенный маршрут для получения информации о пользователе
 @app.get("/user")
 async def get_user_info(request: Request):
     access_token = request.cookies.get("access_token")
@@ -95,12 +92,10 @@ async def get_user_info(request: Request):
         raise HTTPException(status_code=401, detail="Нет токена доступа")
 
     try:
-        # Валидация токена и получение информации о пользователе
+
         userinfo = keycloak_openid.userinfo(access_token)
         username = userinfo.get('preferred_username', 'User')
 
-        # Получение разрешений пользователя
-        # user_permissions  = keycloak_openid.uma_permissions(access_token)
         return userinfo
 
     except requests.exceptions.RequestException as e:
@@ -112,7 +107,6 @@ async def get_user_info(request: Request):
     except Exception as e:
         raise HTTPException(status_code=401, detail="Неверные учетные данные")
 
-# Корневой маршрут для перенаправления на фронтэнд Quasar
 @app.get("/")
 async def root():
     return RedirectResponse(url="http://localhost:9000/#/")  # Замените на URL вашего фронтенда Quasar

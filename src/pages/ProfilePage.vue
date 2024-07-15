@@ -11,6 +11,4 @@
 
 <script></script>
 
-<style scoped>
-/* Ваши стили */
-</style>
+<style scoped></style>

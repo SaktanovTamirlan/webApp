@@ -5,15 +5,6 @@
         <q-toolbar class="bg-white text-black">
           <q-btn flat round dense icon="menu" @click="drawer = !drawer" />
           <q-toolbar-title> Toolbar </q-toolbar-title>
-          <!-- <q-btn
-            class="bg-black q-mr-xs text-white"
-            style="width: 75px"
-            dense
-            no-caps
-            label="Login"
-            @click="loginBtn"
-          />
-          <q-btn color="primary" no-caps label="Token" /> -->
         </q-toolbar>
       </q-header>
       <q-drawer
@@ -112,6 +103,4 @@ onMounted(async () => {
 });
 </script>
 
-<style scoped>
-/* Ваши стили */
-</style>
+<style scoped></style>
